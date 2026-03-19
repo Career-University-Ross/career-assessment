@@ -4,713 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Position Orientation Brief | Career-University</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --surface2: #1a1a1a;
-    --border: #2a2a2a;
-    --text: #f0ede8;
-    --text-muted: #6b6b6b;
-    --text-dim: #3a3a3a;
-    --accent: #c8b89a;
-    --accent-dim: #7a6a52;
-    --danger: #8a3a3a;
-    --success: #3a6a4a;
-    --font-display: 'DM Serif Display', Georgia, serif;
-    --font-mono: 'DM Mono', 'Courier New', monospace;
+    --grad-start: #2ecc8f;
+    --grad-mid: #3a8fc7;
+    --grad-end: #3a4fbb;
+    --accent: #e8623a;
+    --bg: #f4f5f7;
+    --white: #ffffff;
+    --text-dark: #1a2340;
+    --text-mid: #3d5068;
+    --text-light: #6b7f96;
+    --card-shadow: 0 8px 32px rgba(30,60,120,0.13);
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.7;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  /* GRAIN OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
-  }
-
-  /* HEADER */
-  .site-header {
-    width: 100%;
-    padding: 28px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    background: rgba(10,10,10,0.95);
-    backdrop-filter: blur(12px);
-    z-index: 100;
-  }
-
-  .site-logo {
-    font-family: var(--font-display);
-    font-size: 15px;
-    color: var(--text);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-  }
-
-  .site-logo span {
-    color: var(--accent);
-  }
-
-  .header-tag {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-
-  /* MAIN WRAPPER */
-  .main {
-    width: 100%;
-    max-width: 680px;
-    padding: 80px 40px 120px;
-    flex: 1;
-  }
-
-  /* PROGRESS */
-  .progress-bar-wrap {
-    margin-bottom: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .progress-track {
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-    position: relative;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* STEPS */
-  .step {
-    display: none;
-    animation: fadeUp 0.5s ease forwards;
-  }
-
-  .step.active {
-    display: block;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* STEP HEADER */
-  .step-label {
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent-dim);
-    margin-bottom: 20px;
-  }
-
-  .step-title {
-    font-family: var(--font-display);
-    font-size: clamp(26px, 4vw, 38px);
-    line-height: 1.2;
-    color: var(--text);
-    margin-bottom: 16px;
-  }
-
-  .step-title em {
-    color: var(--accent);
-    font-style: italic;
-  }
-
-  .step-desc {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 48px;
-    max-width: 480px;
-    line-height: 1.8;
-  }
-
-  /* QUESTION GROUPS */
-  .question-group {
-    margin-bottom: 40px;
-  }
-
-  .question-label {
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: var(--text);
-    margin-bottom: 16px;
-    display: block;
-    line-height: 1.6;
-  }
-
-  .question-label .q-num {
-    color: var(--accent-dim);
-    margin-right: 8px;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-  }
-
-  /* RADIO OPTIONS */
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .option {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 14px 18px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    background: var(--surface);
-  }
-
-  .option:hover {
-    border-color: var(--accent-dim);
-    background: var(--surface2);
-  }
-
-  .option.selected {
-    border-color: var(--accent);
-    background: var(--surface2);
-  }
-
-  .option input[type="radio"] {
-    display: none;
-  }
-
-  .option-indicator {
-    width: 14px;
-    height: 14px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 2px;
-    transition: all 0.2s ease;
-    position: relative;
-  }
-
-  .option.selected .option-indicator {
-    border-color: var(--accent);
-    background: var(--accent);
-  }
-
-  .option.selected .option-indicator::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    background: var(--bg);
-    border-radius: 50%;
-  }
-
-  .option-text {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    transition: color 0.2s;
-  }
-
-  .option.selected .option-text {
-    color: var(--text);
-  }
-
-  /* TEXT INPUT */
-  .field-input {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 13px;
-    padding: 14px 18px;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-
-  .field-input:focus {
-    border-color: var(--accent-dim);
-  }
-
-  .field-input::placeholder {
-    color: var(--text-dim);
-  }
-
-  select.field-input {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b6b' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 40px;
-  }
-
-  /* DIVIDER */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 40px 0;
-  }
-
-  /* BUTTONS */
-  .btn-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 48px;
-    gap: 16px;
-  }
-
-  .btn {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: none;
-    padding: 14px 28px;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: var(--bg);
-    font-weight: 500;
-  }
-
-  .btn-primary:hover {
-    background: var(--text);
-  }
-
-  .btn-primary:disabled {
-    background: var(--border);
-    color: var(--text-dim);
-    cursor: not-allowed;
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-  }
-
-  .btn-ghost:hover {
-    color: var(--text);
-    border-color: var(--text-muted);
-  }
-
-  /* PAYWALL STEP */
-  .paywall-box {
-    border: 1px solid var(--border);
-    padding: 40px;
-    background: var(--surface);
-    margin-bottom: 32px;
-  }
-
-  .paywall-price {
-    font-family: var(--font-display);
-    font-size: 52px;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1;
-  }
-
-  .paywall-price span {
-    font-size: 22px;
-    color: var(--accent-dim);
-    vertical-align: super;
-    font-family: var(--font-mono);
-    font-weight: 300;
-  }
-
-  .paywall-tagline {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 32px;
-    letter-spacing: 0.05em;
-  }
-
-  .paywall-includes {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 0;
-  }
-
-  .paywall-includes li {
-    font-size: 12px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .paywall-includes li::before {
-    content: '—';
-    color: var(--accent-dim);
-    flex-shrink: 0;
-  }
-
-  .paywall-includes li.not::before {
-    content: '×';
-    color: var(--danger);
-  }
-
-  .paywall-note {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 24px;
-    line-height: 1.8;
-  }
-
-  .btn-stripe {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: var(--accent);
-    color: var(--bg);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 500;
-    padding: 18px 28px;
-    text-decoration: none;
-    transition: background 0.2s;
-    margin-top: 32px;
-  }
-
-  .btn-stripe:hover {
-    background: var(--text);
-  }
-
-  /* RESULTS PAGE */
-  .results-header {
-    margin-bottom: 60px;
-  }
-
-  .results-tag {
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent-dim);
-    margin-bottom: 16px;
-  }
-
-  .results-title {
-    font-family: var(--font-display);
-    font-size: clamp(28px, 4vw, 42px);
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-
-  .results-subtitle {
-    font-size: 13px;
-    color: var(--text-muted);
-    max-width: 460px;
-    line-height: 1.8;
-  }
-
-  /* RISK SCORE DISPLAY */
-  .score-block {
-    border: 1px solid var(--border);
-    padding: 40px;
-    background: var(--surface);
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .score-dial {
-    flex-shrink: 0;
-    position: relative;
-    width: 100px;
-    height: 100px;
-  }
-
-  .score-dial svg {
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg);
-  }
-
-  .score-dial-track {
-    fill: none;
-    stroke: var(--border);
-    stroke-width: 3;
-  }
-
-  .score-dial-fill {
-    fill: none;
-    stroke-width: 3;
-    stroke-linecap: butt;
-    transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .score-number {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 26px;
-    color: var(--text);
-    transform: rotate(0deg);
-  }
-
-  .score-info {
-    flex: 1;
-  }
-
-  .score-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-
-  .score-position {
-    font-family: var(--font-display);
-    font-size: 22px;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .score-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  /* RISK DIMENSIONS */
-  .dimensions {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-bottom: 2px;
-  }
-
-  .dimension {
-    border: 1px solid var(--border);
-    padding: 24px 32px;
-    background: var(--surface);
-  }
-
-  .dim-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-
-  .dim-name {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .dim-score {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-  }
-
-  .dim-bar-track {
-    height: 2px;
-    background: var(--border);
-    margin-bottom: 14px;
-  }
-
-  .dim-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 1s ease;
-  }
-
-  .dim-bar-fill.risk-high { background: #8a5a3a; }
-  .dim-bar-fill.risk-med { background: var(--accent); }
-  .dim-bar-fill.risk-low { background: #4a7a5a; }
-
-  .dim-insight {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  /* ORIENTATION STATEMENT */
-  .orientation-block {
-    border: 1px solid var(--accent-dim);
-    padding: 40px;
-    background: var(--surface);
-    margin-bottom: 2px;
-  }
-
-  .orientation-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent-dim);
-    margin-bottom: 20px;
-  }
-
-  .orientation-text {
-    font-family: var(--font-display);
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--text);
-    font-style: italic;
-  }
-
-  /* NEXT STEPS */
-  .next-block {
-    border: 1px solid var(--border);
-    padding: 40px;
-    background: var(--surface);
-  }
-
-  .next-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-  }
-
-  .next-item {
-    display: flex;
-    gap: 20px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .next-item:last-child { border-bottom: none; }
-
-  .next-num {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--accent-dim);
-    flex-shrink: 0;
-    padding-top: 2px;
-  }
-
-  .next-content {
-    flex: 1;
-  }
-
-  .next-title {
-    font-size: 13px;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .next-body {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  /* FOOTER */
-  .site-footer {
-    width: 100%;
-    padding: 24px 40px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--text-dim);
-  }
-
-  /* VALIDATION ERROR */
-  .error-msg {
-    font-size: 11px;
-    color: #c07070;
-    margin-top: 12px;
-    letter-spacing: 0.06em;
-    display: none;
-  }
-
+  body { background: var(--bg); color: var(--text-dark); font-family: var(--font-body); font-size: 15px; line-height: 1.7; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+  .site-nav { width: 100%; background: var(--white); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 12px rgba(30,60,120,0.07); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text-dark); text-decoration: none; }
+  .nav-logo span { color: var(--grad-mid); }
+  .nav-tag { font-size: 12px; font-weight: 600; color: var(--text-light); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .progress-wrap { width: 100%; background: var(--white); border-bottom: 1px solid #e8ecf0; }
+  .progress-inner { max-width: 760px; margin: 0 auto; padding: 14px 40px; display: flex; align-items: center; gap: 16px; }
+  .progress-track { flex: 1; height: 5px; background: #e0e6ed; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--grad-start), var(--grad-mid), var(--grad-end)); border-radius: 4px; transition: width 0.5s ease; width: 0%; }
+  .progress-label { font-size: 12px; font-weight: 600; color: var(--text-light); letter-spacing: 0.06em; white-space: nowrap; }
+  .progress-pct { font-size: 12px; font-weight: 700; color: var(--grad-mid); white-space: nowrap; min-width: 36px; text-align: right; }
+
+  .page-hero { width: 100%; background: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-mid) 50%, var(--grad-end) 100%); padding: 52px 40px 44px; text-align: center; position: relative; overflow: hidden; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); }
+  .hero-pill { display: inline-block; background: rgba(255,255,255,0.2); color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.3); position: relative; }
+  .page-hero h1 { font-family: var(--font-display); font-size: clamp(30px, 5vw, 50px); font-weight: 800; text-transform: uppercase; color: white; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 14px; position: relative; }
+  .page-hero p { font-size: 15px; color: rgba(255,255,255,0.85); max-width: 500px; margin: 0 auto; position: relative; }
+
+  .main { width: 100%; max-width: 760px; padding: 44px 40px 100px; flex: 1; }
+  .step { display: none; animation: fadeUp 0.45s ease forwards; }
+  .step.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card { background: var(--white); border-radius: 16px; box-shadow: var(--card-shadow); overflow: hidden; margin-bottom: 20px; }
+  .card-top { height: 5px; background: linear-gradient(90deg, var(--grad-start), var(--grad-mid), var(--grad-end)); }
+  .card-body { padding: 36px 40px; }
+
+  .sec-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grad-mid); margin-bottom: 12px; }
+  .sec-tag::before { content: ''; display: inline-block; width: 18px; height: 2px; background: var(--accent); border-radius: 2px; }
+  .step-title { font-family: var(--font-display); font-size: clamp(24px, 3.5vw, 34px); font-weight: 800; text-transform: uppercase; color: var(--text-dark); letter-spacing: 0.02em; line-height: 1.15; margin-bottom: 12px; }
+  .step-title em { color: var(--grad-mid); font-style: normal; }
+  .step-desc { font-size: 14px; color: var(--text-light); max-width: 540px; line-height: 1.75; }
+  .divider { height: 1px; background: #e8ecf0; margin: 24px 0; }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+  .badge { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; border: 1.5px solid #d0dae6; color: var(--text-mid); background: var(--bg); }
+  .badge.hl { background: linear-gradient(135deg, var(--grad-start), var(--grad-mid)); color: white; border-color: transparent; }
+
+  .q-block { margin-bottom: 28px; }
+  .q-label { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+  .q-num { font-family: var(--font-display); font-size: 12px; font-weight: 800; color: white; background: linear-gradient(135deg, var(--grad-mid), var(--grad-end)); width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option { display: flex; align-items: center; gap: 14px; padding: 13px 18px; border: 2px solid #e0e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s; background: var(--bg); }
+  .option:hover { border-color: var(--grad-mid); background: #f0f7ff; }
+  .option.selected { border-color: var(--grad-mid); background: linear-gradient(135deg, rgba(46,204,143,0.07), rgba(58,143,199,0.07)); }
+  .option input { display: none; }
+  .opt-dot { width: 18px; height: 18px; border: 2px solid #c0cdd8; border-radius: 50%; flex-shrink: 0; transition: all 0.2s; position: relative; }
+  .option.selected .opt-dot { border-color: var(--grad-mid); background: var(--grad-mid); }
+  .option.selected .opt-dot::after { content: ''; position: absolute; inset: 3px; background: white; border-radius: 50%; }
+  .opt-text { font-size: 14px; color: var(--text-mid); line-height: 1.5; transition: color 0.2s; }
+  .option.selected .opt-text { color: var(--text-dark); font-weight: 500; }
+
+  .field-select { width: 100%; padding: 13px 44px 13px 18px; border: 2px solid #e0e8f0; border-radius: 10px; background: var(--bg); color: var(--text-dark); font-family: var(--font-body); font-size: 14px; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%233a8fc7' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; transition: border-color 0.2s; }
+  .field-select:focus { border-color: var(--grad-mid); }
+
+  .btn-row { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; gap: 12px; }
+  .btn { font-family: var(--font-display); font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border: none; border-radius: 10px; padding: 14px 32px; transition: all 0.2s; }
+  .btn-primary { background: linear-gradient(135deg, var(--grad-start), var(--grad-mid), var(--grad-end)); color: white; box-shadow: 0 4px 16px rgba(58,143,199,0.3); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(58,143,199,0.4); }
+  .btn-ghost { background: transparent; color: var(--text-light); border: 2px solid #d0dae6; }
+  .btn-ghost:hover { color: var(--text-dark); border-color: var(--text-mid); }
+
+  .error-msg { font-size: 12px; color: #c03030; font-weight: 600; margin-top: 12px; display: none; padding: 10px 16px; background: #fef0f0; border-radius: 8px; border-left: 3px solid #d04040; }
   .error-msg.visible { display: block; }
 
-  /* INTRO */
-  .intro-badges {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
+  /* PAYWALL */
+  .pw-card { background: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-mid) 50%, var(--grad-end) 100%); border-radius: 20px; padding: 48px 44px; color: white; position: relative; overflow: hidden; margin-bottom: 16px; }
+  .pw-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: rgba(255,255,255,0.07); border-radius: 50%; }
+  .pw-card::after { content: ''; position: absolute; bottom: -50px; left: -50px; width: 180px; height: 180px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+  .pw-price { font-family: var(--font-display); font-size: 76px; font-weight: 800; line-height: 1; margin-bottom: 6px; position: relative; z-index: 1; }
+  .pw-price sup { font-size: 32px; vertical-align: super; font-weight: 700; }
+  .pw-tagline { font-size: 13px; opacity: 0.8; margin-bottom: 28px; position: relative; z-index: 1; }
+  .pw-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; position: relative; z-index: 1; }
+  .pw-list li { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .pw-list li::before { content: '✓'; width: 20px; height: 20px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+  .pw-list li.no::before { content: '×'; background: rgba(255,255,255,0.1); }
+  .btn-stripe { display: block; width: 100%; text-align: center; background: white; color: var(--grad-end); font-family: var(--font-display); font-size: 15px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 18px 32px; border-radius: 12px; text-decoration: none; transition: all 0.2s; position: relative; z-index: 1; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .btn-stripe:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+  .pw-note { font-size: 11px; color: var(--text-light); margin-top: 14px; line-height: 1.7; text-align: center; }
 
-  .badge {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 6px 12px;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-  }
+  /* RESULTS */
+  .res-hero { background: linear-gradient(135deg, var(--grad-start), var(--grad-mid), var(--grad-end)); border-radius: 20px; padding: 40px; color: white; margin-bottom: 20px; display: flex; align-items: center; gap: 32px; overflow: hidden; position: relative; }
+  .score-ring { flex-shrink: 0; width: 120px; height: 120px; position: relative; }
+  .score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 8; }
+  .ring-fill { fill: none; stroke: white; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1); }
+  .score-num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 32px; font-weight: 800; color: white; line-height: 1; }
+  .score-num span { font-size: 11px; font-weight: 600; opacity: 0.75; letter-spacing: 0.1em; text-transform: uppercase; }
+  .score-info { flex: 1; }
+  .score-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.75; margin-bottom: 8px; }
+  .score-pos { font-family: var(--font-display); font-size: 28px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+  .score-desc { font-size: 13px; opacity: 0.85; line-height: 1.7; }
 
-  .badge.active-badge {
-    border-color: var(--accent-dim);
-    color: var(--accent);
-  }
+  .dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .dim-card { background: white; border-radius: 14px; padding: 24px; box-shadow: var(--card-shadow); }
+  .dim-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .dim-name { font-family: var(--font-display); font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--text-dark); }
+  .dim-badge { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .dim-badge.low { background: #e6f9ef; color: #1a8c4e; }
+  .dim-badge.med { background: #fff4e6; color: #c07a20; }
+  .dim-badge.high { background: #fce8e8; color: #c03030; }
+  .dim-bar-track { height: 6px; background: #e8ecf0; border-radius: 6px; margin-bottom: 12px; overflow: hidden; }
+  .dim-bar { height: 100%; border-radius: 6px; transition: width 1.2s ease; width: 0%; }
+  .dim-bar.low { background: linear-gradient(90deg, #2ecc8f, #27ae60); }
+  .dim-bar.med { background: linear-gradient(90deg, #f5a623, #e8623a); }
+  .dim-bar.high { background: linear-gradient(90deg, #e8623a, #c0392b); }
+  .dim-insight { font-size: 12px; color: var(--text-light); line-height: 1.7; }
 
-  @media (max-width: 600px) {
-    .main { padding: 48px 24px 80px; }
-    .site-header { padding: 20px 24px; }
-    .score-block { flex-direction: column; gap: 24px; }
-    .paywall-box { padding: 28px 24px; }
+  .orient-block { background: white; border-radius: 16px; padding: 32px 36px; box-shadow: var(--card-shadow); margin-bottom: 20px; border-left: 5px solid var(--grad-mid); }
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grad-mid); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .block-label::before { content: ''; width: 16px; height: 2px; background: var(--accent); border-radius: 2px; }
+  .orient-text { font-size: 17px; font-weight: 500; color: var(--text-dark); line-height: 1.75; font-style: italic; }
+
+  .next-block { background: white; border-radius: 16px; padding: 32px 36px; box-shadow: var(--card-shadow); }
+  .next-item { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid #e8ecf0; }
+  .next-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .next-item:first-child { padding-top: 0; }
+  .next-num { width: 32px; height: 32px; background: linear-gradient(135deg, var(--grad-start), var(--grad-mid)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 14px; font-weight: 800; color: white; flex-shrink: 0; margin-top: 2px; }
+  .next-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+  .next-body { font-size: 13px; color: var(--text-light); line-height: 1.7; }
+
+  .site-footer { width: 100%; background: white; border-top: 1px solid #e0e8f0; padding: 20px 40px; display: flex; justify-content: space-between; font-size: 12px; color: var(--text-light); }
+
+  @media (max-width: 640px) {
+    .main { padding: 28px 20px 80px; }
+    .site-nav, .site-footer { padding: 14px 20px; }
+    .page-hero { padding: 36px 20px 32px; }
+    .progress-inner { padding: 12px 20px; }
+    .card-body { padding: 24px 20px; }
+    .pw-card { padding: 32px 24px; }
+    .pw-list { grid-template-columns: 1fr; }
+    .dim-grid { grid-template-columns: 1fr; }
+    .res-hero { flex-direction: column; text-align: center; }
     .btn-row { flex-direction: column-reverse; }
     .btn { width: 100%; text-align: center; }
   }
@@ -718,616 +165,451 @@
 </head>
 <body>
 
-<header class="site-header">
-  <a href="https://career-university.com" class="site-logo">Career<span>-University</span></a>
-  <span class="header-tag">Position Orientation Brief</span>
-</header>
+<nav class="site-nav">
+  <a href="https://career-university.com" class="nav-logo">Career<span>-University</span></a>
+  <span class="nav-tag">Position Orientation Brief</span>
+</nav>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label" id="prog-label">Assessment</span>
+    <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+    <span class="progress-pct" id="prog-pct">0%</span>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="hero-pill">Career-University · Diagnostic Tool</div>
+  <h1 id="hero-title">Position Orientation Brief</h1>
+  <p id="hero-sub">A structured assessment that places your job search within the modern hiring market.</p>
+</div>
 
 <main class="main">
 
   <!-- STEP 0: INTRO -->
   <div class="step active" id="step-0">
-    <div class="step-label">Begin Assessment</div>
-    <h1 class="step-title">Where does your job search <em>actually</em> stand?</h1>
-    <p class="step-desc">This assessment maps your current position in the hiring market. It takes 4 minutes. There are no right answers — only accurate ones.</p>
-    <div class="intro-badges">
-      <span class="badge active-badge">Diagnostic</span>
-      <span class="badge">Not coaching</span>
-      <span class="badge">Not advice</span>
-      <span class="badge">Structural clarity</span>
-    </div>
-    <div class="divider"></div>
-    <p class="step-desc" style="margin-bottom:0; font-size:12px;">Your responses are used to calculate a market position score across four risk dimensions: signal clarity, alignment, structural readiness, and effort efficiency.</p>
-    <div class="btn-row" style="justify-content:flex-start;">
-      <button class="btn btn-primary" onclick="goToStep(1)">Begin Assessment</button>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="sec-tag">Begin Assessment</div>
+        <h2 class="step-title">Where Does Your Job Search <em>Actually</em> Stand?</h2>
+        <p class="step-desc">This assessment maps your current position in the hiring market across four dimensions. It takes about 4 minutes. There are no right answers — only accurate ones.</p>
+        <div class="badge-row">
+          <span class="badge hl">Diagnostic</span>
+          <span class="badge">Not coaching</span>
+          <span class="badge">Not advice</span>
+          <span class="badge">Structural clarity</span>
+        </div>
+        <div class="divider"></div>
+        <p class="step-desc">Your responses calculate a market position score across: <strong>Signal Clarity, Alignment, Effort Efficiency,</strong> and <strong>Structural Readiness.</strong></p>
+        <div class="btn-row" style="justify-content:flex-start;">
+          <button class="btn btn-primary" onclick="goToStep(1)">Begin Assessment →</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- STEP 1: SEARCH CONTEXT -->
+  <!-- STEP 1 -->
   <div class="step" id="step-1">
-    <div class="step-label">Section 01 / 04 — Search Context</div>
-    <h2 class="step-title">Your current <em>position</em></h2>
-    <p class="step-desc">These questions establish where you are in the market before anything else is assessed.</p>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">01</span> How long have you been actively searching for a new role?</label>
-      <div class="options" id="q1">
-        <label class="option" onclick="selectOption(this, 'q1', 1)"><input type="radio" name="q1"><span class="option-indicator"></span><span class="option-text">Less than 1 month</span></label>
-        <label class="option" onclick="selectOption(this, 'q1', 2)"><input type="radio" name="q1"><span class="option-indicator"></span><span class="option-text">1 to 3 months</span></label>
-        <label class="option" onclick="selectOption(this, 'q1', 3)"><input type="radio" name="q1"><span class="option-indicator"></span><span class="option-text">3 to 6 months</span></label>
-        <label class="option" onclick="selectOption(this, 'q1', 4)"><input type="radio" name="q1"><span class="option-indicator"></span><span class="option-text">6 to 12 months</span></label>
-        <label class="option" onclick="selectOption(this, 'q1', 5)"><input type="radio" name="q1"><span class="option-indicator"></span><span class="option-text">More than 12 months</span></label>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="sec-tag">Section 01 of 04 — Search Context</div>
+        <h2 class="step-title">Your Current <em>Position</em></h2>
+        <p class="step-desc">These questions establish where you are before anything else is assessed.</p>
+        <div class="divider"></div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">1</span>How long have you been actively searching for a new role?</div>
+          <div class="options" id="q1">
+            <label class="option" onclick="selectOption(this,'q1',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Less than 1 month</span></label>
+            <label class="option" onclick="selectOption(this,'q1',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">1 to 3 months</span></label>
+            <label class="option" onclick="selectOption(this,'q1',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">3 to 6 months</span></label>
+            <label class="option" onclick="selectOption(this,'q1',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">6 to 12 months</span></label>
+            <label class="option" onclick="selectOption(this,'q1',5)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">More than 12 months</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">2</span>What is your current employment status?</div>
+          <div class="options" id="q2">
+            <label class="option" onclick="selectOption(this,'q2',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Employed, searching confidentially</span></label>
+            <label class="option" onclick="selectOption(this,'q2',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Recently left a role voluntarily</span></label>
+            <label class="option" onclick="selectOption(this,'q2',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Recently laid off or let go</span></label>
+            <label class="option" onclick="selectOption(this,'q2',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Transitioning from a different field</span></label>
+            <label class="option" onclick="selectOption(this,'q2',5)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Re-entering after a gap</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">3</span>What industry or field are you targeting?</div>
+          <select class="field-select" id="q3" onchange="answers.q3=this.value">
+            <option value="">Select your target field</option>
+            <option value="tech">Technology / Software</option>
+            <option value="finance">Finance / Banking</option>
+            <option value="healthcare">Healthcare / Medical</option>
+            <option value="marketing">Marketing / Creative</option>
+            <option value="operations">Operations / Logistics</option>
+            <option value="education">Education</option>
+            <option value="legal">Legal / Compliance</option>
+            <option value="hr">HR / People</option>
+            <option value="sales">Sales / Business Development</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="error-msg" id="err-1">Please answer all questions before continuing.</div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="goToStep(0)">← Back</button>
+          <button class="btn btn-primary" onclick="validateAndNext(1,2,['q1','q2','q3'])">Continue →</button>
+        </div>
       </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">02</span> What is your current employment status?</label>
-      <div class="options" id="q2">
-        <label class="option" onclick="selectOption(this, 'q2', 1)"><input type="radio" name="q2"><span class="option-indicator"></span><span class="option-text">Employed, searching confidentially</span></label>
-        <label class="option" onclick="selectOption(this, 'q2', 2)"><input type="radio" name="q2"><span class="option-indicator"></span><span class="option-text">Recently left a role voluntarily</span></label>
-        <label class="option" onclick="selectOption(this, 'q2', 3)"><input type="radio" name="q2"><span class="option-indicator"></span><span class="option-text">Recently laid off or let go</span></label>
-        <label class="option" onclick="selectOption(this, 'q2', 4)"><input type="radio" name="q2"><span class="option-indicator"></span><span class="option-text">Transitioning from a different field</span></label>
-        <label class="option" onclick="selectOption(this, 'q2', 5)"><input type="radio" name="q2"><span class="option-indicator"></span><span class="option-text">Re-entering after a gap</span></label>
-      </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">03</span> What industry or field are you targeting?</label>
-      <select class="field-input" id="q3" onchange="answers.q3 = this.value">
-        <option value="">Select your target field</option>
-        <option value="tech">Technology / Software</option>
-        <option value="finance">Finance / Banking</option>
-        <option value="healthcare">Healthcare / Medical</option>
-        <option value="marketing">Marketing / Creative</option>
-        <option value="operations">Operations / Logistics</option>
-        <option value="education">Education</option>
-        <option value="legal">Legal / Compliance</option>
-        <option value="hr">HR / People</option>
-        <option value="sales">Sales / Business Development</option>
-        <option value="other">Other</option>
-      </select>
-    </div>
-
-    <span class="error-msg" id="err-1">Please answer all questions before continuing.</span>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goToStep(0)">Back</button>
-      <button class="btn btn-primary" onclick="validateAndNext(1, 2, ['q1','q2','q3'])">Continue</button>
     </div>
   </div>
 
-  <!-- STEP 2: SIGNAL CLARITY -->
+  <!-- STEP 2 -->
   <div class="step" id="step-2">
-    <div class="step-label">Section 02 / 04 — Signal Clarity</div>
-    <h2 class="step-title">What signal are you <em>transmitting?</em></h2>
-    <p class="step-desc">Signal clarity determines whether hiring systems and humans can quickly understand what you offer and whether it matches what they need.</p>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">04</span> How clearly defined is the specific role you are targeting?</label>
-      <div class="options" id="q4">
-        <label class="option" onclick="selectOption(this, 'q4', 1)"><input type="radio" name="q4"><span class="option-indicator"></span><span class="option-text">Very clear — I have a specific title and function in mind</span></label>
-        <label class="option" onclick="selectOption(this, 'q4', 2)"><input type="radio" name="q4"><span class="option-indicator"></span><span class="option-text">Somewhat clear — I have a general direction but applying broadly</span></label>
-        <label class="option" onclick="selectOption(this, 'q4', 3)"><input type="radio" name="q4"><span class="option-indicator"></span><span class="option-text">Unclear — I am open to many different types of roles</span></label>
-        <label class="option" onclick="selectOption(this, 'q4', 4)"><input type="radio" name="q4"><span class="option-indicator"></span><span class="option-text">I am not sure what I should be targeting</span></label>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="sec-tag">Section 02 of 04 — Signal Clarity</div>
+        <h2 class="step-title">What Signal Are You <em>Transmitting?</em></h2>
+        <p class="step-desc">Signal clarity determines whether hiring systems and humans can quickly understand what you offer and whether it matches what they need.</p>
+        <div class="divider"></div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">4</span>How clearly defined is the specific role you are targeting?</div>
+          <div class="options" id="q4">
+            <label class="option" onclick="selectOption(this,'q4',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Very clear — I have a specific title and function in mind</span></label>
+            <label class="option" onclick="selectOption(this,'q4',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Somewhat clear — I have a general direction but applying broadly</span></label>
+            <label class="option" onclick="selectOption(this,'q4',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Unclear — I am open to many different types of roles</span></label>
+            <label class="option" onclick="selectOption(this,'q4',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">I am not sure what I should be targeting</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">5</span>How consistently does your resume reflect one clear professional identity?</div>
+          <div class="options" id="q5">
+            <label class="option" onclick="selectOption(this,'q5',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Very consistently — my resume tells one story</span></label>
+            <label class="option" onclick="selectOption(this,'q5',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Somewhat — there are a few different directions showing</span></label>
+            <label class="option" onclick="selectOption(this,'q5',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Not very — my background spans many different areas</span></label>
+            <label class="option" onclick="selectOption(this,'q5',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">I am unsure what story my resume tells</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">6</span>Do you tailor your resume and materials for each application?</div>
+          <div class="options" id="q6">
+            <label class="option" onclick="selectOption(this,'q6',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Yes, I adjust for every role I apply to</span></label>
+            <label class="option" onclick="selectOption(this,'q6',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Sometimes, for roles I care more about</span></label>
+            <label class="option" onclick="selectOption(this,'q6',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Rarely — I use mostly the same materials</span></label>
+            <label class="option" onclick="selectOption(this,'q6',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">No, I submit the same resume to all applications</span></label>
+          </div>
+        </div>
+        <div class="error-msg" id="err-2">Please answer all questions before continuing.</div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="goToStep(1)">← Back</button>
+          <button class="btn btn-primary" onclick="validateAndNext(2,3,['q4','q5','q6'])">Continue →</button>
+        </div>
       </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">05</span> How consistently does your resume reflect one clear professional identity?</label>
-      <div class="options" id="q5">
-        <label class="option" onclick="selectOption(this, 'q5', 1)"><input type="radio" name="q5"><span class="option-indicator"></span><span class="option-text">Very consistently — my resume tells one story</span></label>
-        <label class="option" onclick="selectOption(this, 'q5', 2)"><input type="radio" name="q5"><span class="option-indicator"></span><span class="option-text">Somewhat — there are a few different directions showing</span></label>
-        <label class="option" onclick="selectOption(this, 'q5', 3)"><input type="radio" name="q5"><span class="option-indicator"></span><span class="option-text">Not very — my background spans many different areas</span></label>
-        <label class="option" onclick="selectOption(this, 'q5', 4)"><input type="radio" name="q5"><span class="option-indicator"></span><span class="option-text">I am unsure what story my resume tells</span></label>
-      </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">06</span> Do you tailor your resume and materials for each application?</label>
-      <div class="options" id="q6">
-        <label class="option" onclick="selectOption(this, 'q6', 1)"><input type="radio" name="q6"><span class="option-indicator"></span><span class="option-text">Yes, I adjust for every role I apply to</span></label>
-        <label class="option" onclick="selectOption(this, 'q6', 2)"><input type="radio" name="q6"><span class="option-indicator"></span><span class="option-text">Sometimes, for roles I care more about</span></label>
-        <label class="option" onclick="selectOption(this, 'q6', 3)"><input type="radio" name="q6"><span class="option-indicator"></span><span class="option-text">Rarely — I use mostly the same materials</span></label>
-        <label class="option" onclick="selectOption(this, 'q6', 4)"><input type="radio" name="q6"><span class="option-indicator"></span><span class="option-text">No, I submit the same resume to all applications</span></label>
-      </div>
-    </div>
-
-    <span class="error-msg" id="err-2">Please answer all questions before continuing.</span>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goToStep(1)">Back</button>
-      <button class="btn btn-primary" onclick="validateAndNext(2, 3, ['q4','q5','q6'])">Continue</button>
     </div>
   </div>
 
-  <!-- STEP 3: EFFORT & STRUCTURE -->
+  <!-- STEP 3 -->
   <div class="step" id="step-3">
-    <div class="step-label">Section 03 / 04 — Effort & Structure</div>
-    <h2 class="step-title">How is your effort <em>structured?</em></h2>
-    <p class="step-desc">Volume without structure creates noise. This section identifies whether your effort is compounding or dispersing.</p>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">07</span> Roughly how many applications have you submitted in the past 30 days?</label>
-      <div class="options" id="q7">
-        <label class="option" onclick="selectOption(this, 'q7', 1)"><input type="radio" name="q7"><span class="option-indicator"></span><span class="option-text">1 to 5 — I am being selective</span></label>
-        <label class="option" onclick="selectOption(this, 'q7', 2)"><input type="radio" name="q7"><span class="option-indicator"></span><span class="option-text">6 to 20 — moderate volume</span></label>
-        <label class="option" onclick="selectOption(this, 'q7', 3)"><input type="radio" name="q7"><span class="option-indicator"></span><span class="option-text">21 to 50 — high volume</span></label>
-        <label class="option" onclick="selectOption(this, 'q7', 4)"><input type="radio" name="q7"><span class="option-indicator"></span><span class="option-text">More than 50 — applying to everything relevant</span></label>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="sec-tag">Section 03 of 04 — Effort & Structure</div>
+        <h2 class="step-title">How Is Your Effort <em>Structured?</em></h2>
+        <p class="step-desc">Volume without structure creates noise. This section identifies whether your effort is compounding or dispersing.</p>
+        <div class="divider"></div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">7</span>Roughly how many applications have you submitted in the past 30 days?</div>
+          <div class="options" id="q7">
+            <label class="option" onclick="selectOption(this,'q7',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">1 to 5 — I am being selective</span></label>
+            <label class="option" onclick="selectOption(this,'q7',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">6 to 20 — moderate volume</span></label>
+            <label class="option" onclick="selectOption(this,'q7',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">21 to 50 — high volume</span></label>
+            <label class="option" onclick="selectOption(this,'q7',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">More than 50 — applying to everything relevant</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">8</span>Of those applications, how many resulted in any recruiter or hiring manager contact?</div>
+          <div class="options" id="q8">
+            <label class="option" onclick="selectOption(this,'q8',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">More than 30% — strong response rate</span></label>
+            <label class="option" onclick="selectOption(this,'q8',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">10 to 30% — moderate response rate</span></label>
+            <label class="option" onclick="selectOption(this,'q8',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Less than 10% — low response rate</span></label>
+            <label class="option" onclick="selectOption(this,'q8',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Zero or near zero responses</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">9</span>Are you aware of how Applicant Tracking Systems filter candidates before human review?</div>
+          <div class="options" id="q9">
+            <label class="option" onclick="selectOption(this,'q9',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Yes, and I actively format my resume for ATS compatibility</span></label>
+            <label class="option" onclick="selectOption(this,'q9',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">I am aware but have not adjusted my approach</span></label>
+            <label class="option" onclick="selectOption(this,'q9',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">I have heard of it but do not fully understand how it works</span></label>
+            <label class="option" onclick="selectOption(this,'q9',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">I was not aware of this</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">10</span>How would you describe your outreach to people inside target companies?</div>
+          <div class="options" id="q10">
+            <label class="option" onclick="selectOption(this,'q10',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Active — I reach out regularly and get responses</span></label>
+            <label class="option" onclick="selectOption(this,'q10',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Occasional — I have reached out but rarely hear back</span></label>
+            <label class="option" onclick="selectOption(this,'q10',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Minimal — I mostly rely on applications alone</span></label>
+            <label class="option" onclick="selectOption(this,'q10',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">None — I have not pursued direct outreach</span></label>
+          </div>
+        </div>
+        <div class="error-msg" id="err-3">Please answer all questions before continuing.</div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="goToStep(2)">← Back</button>
+          <button class="btn btn-primary" onclick="validateAndNext(3,4,['q7','q8','q9','q10'])">Continue →</button>
+        </div>
       </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">08</span> Of those applications, approximately how many resulted in any recruiter or hiring manager contact?</label>
-      <div class="options" id="q8">
-        <label class="option" onclick="selectOption(this, 'q8', 1)"><input type="radio" name="q8"><span class="option-indicator"></span><span class="option-text">More than 30% — strong response rate</span></label>
-        <label class="option" onclick="selectOption(this, 'q8', 2)"><input type="radio" name="q8"><span class="option-indicator"></span><span class="option-text">10 to 30% — moderate response rate</span></label>
-        <label class="option" onclick="selectOption(this, 'q8', 3)"><input type="radio" name="q8"><span class="option-indicator"></span><span class="option-text">Less than 10% — low response rate</span></label>
-        <label class="option" onclick="selectOption(this, 'q8', 4)"><input type="radio" name="q8"><span class="option-indicator"></span><span class="option-text">Zero or near zero responses</span></label>
-      </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">09</span> Are you aware of how Applicant Tracking Systems filter candidates before human review?</label>
-      <div class="options" id="q9">
-        <label class="option" onclick="selectOption(this, 'q9', 1)"><input type="radio" name="q9"><span class="option-indicator"></span><span class="option-text">Yes, and I actively format my resume for ATS compatibility</span></label>
-        <label class="option" onclick="selectOption(this, 'q9', 2)"><input type="radio" name="q9"><span class="option-indicator"></span><span class="option-text">I am aware but have not adjusted my approach</span></label>
-        <label class="option" onclick="selectOption(this, 'q9', 3)"><input type="radio" name="q9"><span class="option-indicator"></span><span class="option-text">I have heard of it but do not fully understand how it works</span></label>
-        <label class="option" onclick="selectOption(this, 'q9', 4)"><input type="radio" name="q9"><span class="option-indicator"></span><span class="option-text">I was not aware of this</span></label>
-      </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">10</span> How would you describe your outreach to people inside target companies?</label>
-      <div class="options" id="q10">
-        <label class="option" onclick="selectOption(this, 'q10', 1)"><input type="radio" name="q10"><span class="option-indicator"></span><span class="option-text">Active — I reach out regularly and get responses</span></label>
-        <label class="option" onclick="selectOption(this, 'q10', 2)"><input type="radio" name="q10"><span class="option-indicator"></span><span class="option-text">Occasional — I have reached out but rarely hear back</span></label>
-        <label class="option" onclick="selectOption(this, 'q10', 3)"><input type="radio" name="q10"><span class="option-indicator"></span><span class="option-text">Minimal — I mostly rely on applications alone</span></label>
-        <label class="option" onclick="selectOption(this, 'q10', 4)"><input type="radio" name="q10"><span class="option-indicator"></span><span class="option-text">None — I have not pursued direct outreach</span></label>
-      </div>
-    </div>
-
-    <span class="error-msg" id="err-3">Please answer all questions before continuing.</span>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goToStep(2)">Back</button>
-      <button class="btn btn-primary" onclick="validateAndNext(3, 4, ['q7','q8','q9','q10'])">Continue</button>
     </div>
   </div>
 
-  <!-- STEP 4: ALIGNMENT -->
+  <!-- STEP 4 -->
   <div class="step" id="step-4">
-    <div class="step-label">Section 04 / 04 — Alignment</div>
-    <h2 class="step-title">Where does your effort <em>actually</em> point?</h2>
-    <p class="step-desc">Alignment risk is the most commonly overlooked factor in a stalled search. These questions identify whether your direction and your effort agree.</p>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">11</span> When you imagine your ideal next role, how specific is that picture?</label>
-      <div class="options" id="q11">
-        <label class="option" onclick="selectOption(this, 'q11', 1)"><input type="radio" name="q11"><span class="option-indicator"></span><span class="option-text">Very specific — I can describe it in detail</span></label>
-        <label class="option" onclick="selectOption(this, 'q11', 2)"><input type="radio" name="q11"><span class="option-indicator"></span><span class="option-text">Somewhat specific — I know the general type of work</span></label>
-        <label class="option" onclick="selectOption(this, 'q11', 3)"><input type="radio" name="q11"><span class="option-indicator"></span><span class="option-text">Vague — I mostly know what I do not want</span></label>
-        <label class="option" onclick="selectOption(this, 'q11', 4)"><input type="radio" name="q11"><span class="option-indicator"></span><span class="option-text">I am not sure — I am figuring it out as I go</span></label>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="sec-tag">Section 04 of 04 — Alignment</div>
+        <h2 class="step-title">Where Does Your Effort <em>Actually</em> Point?</h2>
+        <p class="step-desc">Alignment risk is the most commonly overlooked factor in a stalled search. These questions identify whether your direction and your effort agree.</p>
+        <div class="divider"></div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">11</span>When you imagine your ideal next role, how specific is that picture?</div>
+          <div class="options" id="q11">
+            <label class="option" onclick="selectOption(this,'q11',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Very specific — I can describe it in detail</span></label>
+            <label class="option" onclick="selectOption(this,'q11',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Somewhat specific — I know the general type of work</span></label>
+            <label class="option" onclick="selectOption(this,'q11',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Vague — I mostly know what I do not want</span></label>
+            <label class="option" onclick="selectOption(this,'q11',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">I am not sure — I am figuring it out as I go</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">12</span>How well do your current skills match the roles you are applying to?</div>
+          <div class="options" id="q12">
+            <label class="option" onclick="selectOption(this,'q12',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Strong match — I meet most or all requirements</span></label>
+            <label class="option" onclick="selectOption(this,'q12',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Partial match — I meet some but am stretching in areas</span></label>
+            <label class="option" onclick="selectOption(this,'q12',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Weak match — I am applying aspirationally</span></label>
+            <label class="option" onclick="selectOption(this,'q12',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Uncertain — I am not sure how I compare to other candidates</span></label>
+          </div>
+        </div>
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">13</span>How would you describe your motivation for searching right now?</div>
+          <div class="options" id="q13">
+            <label class="option" onclick="selectOption(this,'q13',1)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Pursuing something — I have a clear goal I am moving toward</span></label>
+            <label class="option" onclick="selectOption(this,'q13',2)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Mixed — part goal, part escaping a current situation</span></label>
+            <label class="option" onclick="selectOption(this,'q13',3)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Escaping — I am primarily trying to leave a current situation</span></label>
+            <label class="option" onclick="selectOption(this,'q13',4)"><input type="radio"><span class="opt-dot"></span><span class="opt-text">Uncertain — I feel pressure to search but lack a clear reason</span></label>
+          </div>
+        </div>
+        <div class="error-msg" id="err-4">Please answer all questions before continuing.</div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="goToStep(3)">← Back</button>
+          <button class="btn btn-primary" onclick="validateAndNext(4,5,['q11','q12','q13'])">Review & Unlock Results →</button>
+        </div>
       </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">12</span> How well do your current skills match the roles you are applying to?</label>
-      <div class="options" id="q12">
-        <label class="option" onclick="selectOption(this, 'q12', 1)"><input type="radio" name="q12"><span class="option-indicator"></span><span class="option-text">Strong match — I meet most or all requirements</span></label>
-        <label class="option" onclick="selectOption(this, 'q12', 2)"><input type="radio" name="q12"><span class="option-indicator"></span><span class="option-text">Partial match — I meet some but am stretching in areas</span></label>
-        <label class="option" onclick="selectOption(this, 'q12', 3)"><input type="radio" name="q12"><span class="option-indicator"></span><span class="option-text">Weak match — I am applying aspirationally</span></label>
-        <label class="option" onclick="selectOption(this, 'q12', 4)"><input type="radio" name="q12"><span class="option-indicator"></span><span class="option-text">Uncertain — I am not sure how I compare to other candidates</span></label>
-      </div>
-    </div>
-
-    <div class="question-group">
-      <label class="question-label"><span class="q-num">13</span> How would you describe your motivation for searching right now?</label>
-      <div class="options" id="q13">
-        <label class="option" onclick="selectOption(this, 'q13', 1)"><input type="radio" name="q13"><span class="option-indicator"></span><span class="option-text">Pursuing something — I have a clear goal I am moving toward</span></label>
-        <label class="option" onclick="selectOption(this, 'q13', 2)"><input type="radio" name="q13"><span class="option-indicator"></span><span class="option-text">Mixed — part goal, part escaping a current situation</span></label>
-        <label class="option" onclick="selectOption(this, 'q13', 3)"><input type="radio" name="q13"><span class="option-indicator"></span><span class="option-text">Escaping — I am primarily trying to leave a current situation</span></label>
-        <label class="option" onclick="selectOption(this, 'q13', 4)"><input type="radio" name="q13"><span class="option-indicator"></span><span class="option-text">Uncertain — I feel pressure to search but lack a clear reason</span></label>
-      </div>
-    </div>
-
-    <span class="error-msg" id="err-4">Please answer all questions before continuing.</span>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goToStep(3)">Back</button>
-      <button class="btn btn-primary" onclick="validateAndNext(4, 5, ['q11','q12','q13'])">Review & Unlock Results</button>
     </div>
   </div>
 
   <!-- STEP 5: PAYWALL -->
   <div class="step" id="step-5">
-    <div class="step-label">Assessment Complete</div>
-    <h2 class="step-title">Your results are <em>ready.</em></h2>
-    <p class="step-desc">Your responses have been scored across four risk dimensions. Unlock your Position Orientation Brief to see where you stand.</p>
-
-    <div class="paywall-box">
-      <div class="paywall-price"><span>$</span>29</div>
-      <div class="paywall-tagline">One-time. Instant delivery. No subscription.</div>
-      <ul class="paywall-includes">
-        <li>Your overall market position score</li>
-        <li>Scores across all four risk dimensions</li>
-        <li>A structural orientation statement</li>
+    <div class="pw-card">
+      <div class="hero-pill" style="margin-bottom:20px;">Assessment Complete</div>
+      <div class="pw-price"><sup>$</sup>29</div>
+      <div class="pw-tagline">One-time payment · Instant delivery · No subscription</div>
+      <ul class="pw-list">
+        <li>Overall market position score</li>
+        <li>Four risk dimension scores</li>
+        <li>Structural orientation statement</li>
         <li>Prioritized clarity actions</li>
-        <li class="not">Career advice or coaching</li>
-        <li class="not">Role suggestions or resume review</li>
+        <li class="no">Career advice or coaching</li>
+        <li class="no">Role suggestions or resume review</li>
       </ul>
-      <p class="paywall-note">All purchases are final. This is a diagnostic product — it tells you where you are, not where to go. By purchasing you confirm you have read and agree to the Terms & Conditions at career-university.com.</p>
-      <a href="https://buy.stripe.com/cNi9AVfvv0mH1nKast0Ba00" class="btn-stripe" target="_blank">Unlock Position Orientation Brief — $29</a>
+      <a href="https://buy.stripe.com/cNi9AVfvv0mH1nKast0Ba00" class="btn-stripe" onclick="saveAnswers()">Unlock Position Orientation Brief →</a>
     </div>
-
-    <div class="btn-row" style="justify-content:flex-start; margin-top: 0;">
-      <button class="btn btn-ghost" onclick="goToStep(4)">Back to Assessment</button>
+    <p class="pw-note">All purchases are final. This is a diagnostic product — it tells you where you are, not where to go.<br>By purchasing you confirm you agree to the <a href="https://career-university.com" style="color:var(--grad-mid);">Terms & Conditions</a>.</p>
+    <div class="btn-row" style="justify-content:flex-start;margin-top:20px;">
+      <button class="btn btn-ghost" onclick="goToStep(4)">← Back to Assessment</button>
     </div>
   </div>
 
-  <!-- STEP 6: RESULTS (demo / post-payment) -->
+  <!-- STEP 6: RESULTS -->
   <div class="step" id="step-6">
-    <div class="results-header">
-      <div class="results-tag">Position Orientation Brief</div>
-      <h2 class="results-title">Your Market <em>Position</em></h2>
-      <p class="results-subtitle">Based on your responses, here is where your job search currently sits within the modern hiring environment.</p>
-    </div>
-
-    <div class="score-block" style="margin-bottom:2px;">
-      <div class="score-dial">
-        <svg viewBox="0 0 100 100">
-          <circle class="score-dial-track" cx="50" cy="50" r="42"/>
-          <circle class="score-dial-fill" id="dial-fill" cx="50" cy="50" r="42" stroke="#c8b89a"
-            stroke-dasharray="264" stroke-dashoffset="264"/>
+    <div class="res-hero">
+      <div class="score-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="ring-track" cx="60" cy="60" r="50"/>
+          <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/>
         </svg>
-        <div class="score-number" id="score-number">0</div>
+        <div class="score-num" id="score-num">0<span>Score</span></div>
       </div>
       <div class="score-info">
-        <div class="score-label">Overall Risk Score</div>
-        <div class="score-position" id="score-position">Calculating...</div>
+        <div class="score-tag">Overall Market Position</div>
+        <div class="score-pos" id="score-pos">Calculating...</div>
         <div class="score-desc" id="score-desc"></div>
       </div>
     </div>
-
-    <div class="dimensions" id="dimensions-container"></div>
-
-    <div class="orientation-block" style="margin-top:2px;">
-      <div class="orientation-label">Orientation Statement</div>
-      <div class="orientation-text" id="orientation-text"></div>
+    <div class="dim-grid" id="dim-grid"></div>
+    <div class="orient-block">
+      <div class="block-label">Orientation Statement</div>
+      <div class="orient-text" id="orient-text"></div>
     </div>
-
-    <div class="next-block" style="margin-top:2px;">
-      <div class="next-label">Where to Direct Attention First</div>
-      <div id="next-steps-container"></div>
+    <div class="next-block">
+      <div class="block-label">Where to Direct Attention First</div>
+      <div id="next-steps"></div>
     </div>
-
-    <div style="margin-top: 40px; font-size: 11px; color: var(--text-dim); line-height: 1.8;">
-      This brief reflects your stated position at the time of assessment. It is not a prediction of outcome. Career-University does not provide career advice, role suggestions, or guarantees of results.
-    </div>
+    <p style="font-size:11px;color:var(--text-light);margin-top:24px;line-height:1.8;text-align:center;">
+      This brief reflects your stated position at the time of assessment. It is not a prediction of outcome.<br>
+      Career-University does not provide career advice, role suggestions, or guarantees of results.
+    </p>
   </div>
 
 </main>
 
 <footer class="site-footer">
-  <span>© 2026 Career-University. Ross & Co. UX Solutions, LLC</span>
-  <span>career-university.com</span>
+  <span>© 2026 Career-University · Ross & Co. UX Solutions, LLC</span>
+  <a href="https://career-university.com" style="color:var(--text-light);text-decoration:none;">career-university.com</a>
 </footer>
 
 <script>
-  // ---- STATE ----
   const answers = {};
-  let currentStep = 0;
-  const totalSteps = 5; // excluding intro and results
+  let cur = 0;
+  const TOTAL = 5;
 
-  // ---- PROGRESS ----
-  function updateProgress(step) {
-    const pct = step === 0 ? 0 : Math.round(((step) / totalSteps) * 100);
-    document.querySelector('.progress-fill') && (document.querySelector('.progress-fill').style.width = pct + '%');
+  const HERO_TITLES = ['Position Orientation Brief','Your Current Position','Signal Clarity','Effort & Structure','Alignment','Unlock Your Results','Your Position Brief'];
+  const HERO_SUBS = [
+    'A structured assessment that places your job search within the modern hiring market.',
+    'Section 01 of 04 — establishing where you are before anything else is assessed.',
+    'Section 02 of 04 — can hiring systems read the signal you are sending?',
+    'Section 03 of 04 — is your effort compounding or dispersing?',
+    'Section 04 of 04 — does your direction match your effort?',
+    'Your assessment is complete. Unlock your full Position Orientation Brief.',
+    'Your personalized market position analysis is ready.'
+  ];
+  const PROG_LABELS = ['','Search Context','Signal Clarity','Effort & Structure','Alignment','Results'];
+
+  function updateUI(step) {
+    const pct = step === 0 ? 0 : Math.min(Math.round((step/TOTAL)*100),100);
+    document.getElementById('prog-fill').style.width = pct+'%';
+    document.getElementById('prog-pct').textContent = pct+'%';
+    document.getElementById('prog-label').textContent = PROG_LABELS[step] || 'Assessment';
+    document.getElementById('hero-title').textContent = HERO_TITLES[step] || HERO_TITLES[0];
+    document.getElementById('hero-sub').textContent = HERO_SUBS[step] || HERO_SUBS[0];
   }
 
-  // Create progress bar dynamically
-  const progressWrap = document.createElement('div');
-  progressWrap.className = 'progress-bar-wrap';
-  progressWrap.innerHTML = `
-    <div class="progress-meta">
-      <span id="progress-label">Assessment</span>
-      <span id="progress-pct">0%</span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
-  `;
-  document.querySelector('.main').prepend(progressWrap);
-
-  function updateProgressUI(step) {
-    const pct = step === 0 ? 0 : Math.min(Math.round((step / totalSteps) * 100), 100);
-    document.querySelector('.progress-fill').style.width = pct + '%';
-    document.getElementById('progress-pct').textContent = pct + '%';
-    const labels = ['', 'Search Context', 'Signal Clarity', 'Effort & Structure', 'Alignment', 'Results'];
-    document.getElementById('progress-label').textContent = labels[step] || 'Assessment';
-  }
-
-  // ---- NAVIGATION ----
   function goToStep(n) {
-    document.getElementById('step-' + currentStep).classList.remove('active');
-    currentStep = n;
-    document.getElementById('step-' + n).classList.add('active');
-    updateProgressUI(n);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('step-'+cur).classList.remove('active');
+    cur = n;
+    document.getElementById('step-'+n).classList.add('active');
+    updateUI(n);
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  // ---- OPTION SELECTION ----
   function selectOption(el, group, value) {
-    document.querySelectorAll(`#${group} .option`).forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('#'+group+' .option').forEach(o=>o.classList.remove('selected'));
     el.classList.add('selected');
     answers[group] = value;
   }
 
-  // ---- VALIDATION ----
-  function validateAndNext(currentStepNum, nextStep, required) {
-    const errEl = document.getElementById('err-' + currentStepNum);
-    let valid = true;
-    for (const q of required) {
-      if (!answers[q]) { valid = false; break; }
-    }
-    if (!valid) {
-      errEl.classList.add('visible');
-      return;
-    }
-    errEl.classList.remove('visible');
-    if (nextStep === 5) {
-      computeScores();
-      goToStep(5); // paywall
-    } else {
-      goToStep(nextStep);
-    }
+  function validateAndNext(step, next, required) {
+    const err = document.getElementById('err-'+step);
+    if (!required.every(q=>answers[q])) { err.classList.add('visible'); return; }
+    err.classList.remove('visible');
+    if (next===5) computeScores();
+    goToStep(next);
   }
 
-  // ---- SCORING ENGINE ----
+  function saveAnswers() { sessionStorage.setItem('cu_answers', JSON.stringify(answers)); }
+
+  function scoreGroup(vals, maxes) {
+    return Math.round(vals.reduce((a,v,i)=>a+((maxes[i]-v+1)/maxes[i]),0)/vals.length*100);
+  }
+
   function computeScores() {
-    // Store scores globally so results page can use them
-    window.scoreData = calculateScores();
+    const signal = scoreGroup([answers.q4,answers.q5,answers.q6],[4,4,4]);
+    const effort = scoreGroup([answers.q7,answers.q8,answers.q9,answers.q10],[4,4,4,4]);
+    const align  = scoreGroup([answers.q11,answers.q12,answers.q13],[4,4,4]);
+    const struct = Math.round(((5-answers.q1+1)/5)*100);
+    const overall = Math.round(signal*0.30+effort*0.25+align*0.30+struct*0.15);
+    window.scoreData = {overall,signal,effort,align,struct};
   }
 
-  function calculateScores() {
-    // Signal Clarity Score (q4, q5, q6)
-    // Lower answer index = better signal
-    const signalRaw = [answers.q4, answers.q5, answers.q6];
-    const signalScore = scoreGroup(signalRaw, [4,4,4]);
-
-    // Effort Efficiency Score (q7, q8, q9, q10)
-    // q7: 1=selective(good), 4=spray(bad)
-    // q8: 1=high response(good), 4=zero(bad)
-    // q9: 1=aware+adjusted(good), 4=unaware(bad)
-    // q10: 1=active outreach(good), 4=none(bad)
-    const effortRaw = [answers.q7, answers.q8, answers.q9, answers.q10];
-    const effortScore = scoreGroup(effortRaw, [4,4,4,4]);
-
-    // Alignment Score (q11, q12, q13)
-    const alignRaw = [answers.q11, answers.q12, answers.q13];
-    const alignScore = scoreGroup(alignRaw, [4,4,4]);
-
-    // Structural Readiness (q1, q2 — duration and status affect risk)
-    // q1: 1=<1mo(low risk), 5=>12mo(high risk) — so invert
-    // q2: use as contextual modifier
-    const structuralBase = 5 - answers.q1 + 1; // 1-5 inverted
-    const structuralScore = Math.round((structuralBase / 5) * 100);
-
-    // Overall = weighted average
-    const overall = Math.round(
-      signalScore * 0.30 +
-      effortScore * 0.25 +
-      alignScore * 0.30 +
-      structuralScore * 0.15
-    );
-
-    return {
-      overall,
-      dimensions: [
-        {
-          name: 'Signal Clarity',
-          score: signalScore,
-          insight: getSignalInsight(signalScore, answers)
-        },
-        {
-          name: 'Alignment',
-          score: alignScore,
-          insight: getAlignInsight(alignScore, answers)
-        },
-        {
-          name: 'Effort Efficiency',
-          score: effortScore,
-          insight: getEffortInsight(effortScore, answers)
-        },
-        {
-          name: 'Structural Readiness',
-          score: structuralScore,
-          insight: getStructuralInsight(structuralScore, answers)
-        }
-      ]
-    };
+  function getPos(s) {
+    if(s>=80) return {label:'Strong Position',desc:'Your search is structurally sound. Effort and signal are well-aligned. The primary task is maintaining consistency while increasing targeted outreach.'};
+    if(s>=60) return {label:'Moderate Position',desc:'Your search has workable foundations but structural gaps are present. Effort is being spent, but not all of it is converting. Orientation before further optimization is the priority.'};
+    if(s>=40) return {label:'Strained Position',desc:'Multiple structural factors are limiting traction. This is not a reflection of capability — it reflects a mismatch between your approach and how modern hiring systems process candidates.'};
+    return {label:'High-Risk Position',desc:'Your search is structurally misaligned with how current hiring systems operate. Volume alone will not resolve this. Orientation is needed before additional effort is applied.'};
   }
 
-  function scoreGroup(values, maxValues) {
-    let total = 0;
-    for (let i = 0; i < values.length; i++) {
-      // Invert: lower answer = better = higher score
-      total += ((maxValues[i] - values[i] + 1) / maxValues[i]);
-    }
-    return Math.round((total / values.length) * 100);
-  }
+  function rc(s){return s>=70?'low':s>=40?'med':'high';}
+  function rl(s){return s>=70?'Low Risk':s>=40?'Moderate Risk':'High Risk';}
 
-  function getSignalInsight(score, a) {
-    if (score >= 70) return "Your materials appear to project a consistent, legible signal. The risk here is low — the system can read who you are and what you offer.";
-    if (score >= 40) return "Your signal has inconsistencies. Applying broadly or using untailored materials reduces the precision of what you transmit into hiring systems.";
-    return "Your current signal is diffuse. Without a clear, consistent identity in your materials, automated systems have difficulty placing you — which reduces visibility before a human ever sees your name.";
-  }
+  const INSIGHTS = {
+    'Signal Clarity':{low:"Your materials project a consistent, legible signal. Hiring systems can read who you are and what you offer.",med:"Your signal has inconsistencies. Applying broadly or untailored materials reduces the precision of what you transmit.",high:"Your signal is diffuse. Without a consistent identity in your materials, automated systems have difficulty placing you before a human ever sees your name."},
+    'Alignment':{low:"Your direction and effort are in agreement. Alignment risk is low — your search has a clear target and your motivation supports sustained effort.",med:"Partial alignment exists, but some drift is present. Your stated goal and actual applications may not fully agree.",high:"Alignment risk is elevated. Searching without a clear direction means effort gets dispersed rather than compounded. This is often structural, not personal."},
+    'Effort Efficiency':{low:"Your effort appears structured and targeted. Application volume is matched with reasonable response expectations and system awareness.",med:"Your effort is producing some results but efficiency is limited. There may be friction in how materials enter automated systems.",high:"High effort with low return is a structural signal, not a personal one. The volume-to-response ratio suggests materials may be filtered before reaching human review."},
+    'Structural Readiness':{low:"Your search is early-stage. Structural risk is low — you have time to orient before pressure accelerates poor decisions.",med:"You are mid-search. Time pressure can compress decision-making. Orienting now prevents compounding structural issues.",high:"Extended search duration increases the risk of normalized misalignment — continuing patterns that are not working simply because they have become routine."}
+  };
 
-  function getAlignInsight(score, a) {
-    if (score >= 70) return "Your direction and effort appear to be in agreement. Alignment risk is low — your search has a clear target and your motivation supports sustained effort.";
-    if (score >= 40) return "Partial alignment exists, but some drift is present. Your stated goal and your actual applications may not fully agree, which diffuses traction over time.";
-    return "Alignment risk is elevated. Searching without a clear direction means effort gets dispersed rather than compounded. This is often structural, not personal.";
-  }
+  const ACTIONS = {
+    'Signal Clarity':{title:'Audit your signal',body:'Before applying further, review whether your resume projects one clear professional identity. If a stranger read it in 10 seconds, could they state your target role?'},
+    'Alignment':{title:'Define your constraints',body:'List the non-negotiables for your next role — not preferences, constraints. If you cannot name three, direction is not yet established and optimization will compound misalignment.'},
+    'Effort Efficiency':{title:'Restructure before increasing volume',body:'If your application-to-response ratio is below 10%, adding more applications will not change the ratio. The input — not the quantity — needs to change first.'},
+    'Structural Readiness':{title:'Account for time pressure',body:'Identify whether urgency is causing you to apply to roles that do not match your target. Pressure accelerates misalignment when direction is unclear.'}
+  };
 
-  function getEffortInsight(score, a) {
-    if (score >= 70) return "Your effort appears structured and targeted. Application volume is matched with reasonable response expectations and system awareness.";
-    if (score >= 40) return "Your effort is producing some results but efficiency is limited. There may be friction in how materials enter automated systems or in the ratio of applications to outreach.";
-    return "High effort with low return is a structural signal, not a personal one. The volume-to-response ratio suggests materials may be filtered before reaching human review.";
-  }
-
-  function getStructuralInsight(score, a) {
-    if (score >= 70) return "Your search is early-stage. Structural risk is low — you have time to orient before pressure accelerates poor decision-making.";
-    if (score >= 40) return "You are mid-search. Time pressure can begin to compress decision-making. Orienting now prevents compounding structural issues.";
-    return "Extended search duration increases the risk of normalized misalignment — continuing patterns that are not working simply because they have become routine. Structural review is warranted.";
-  }
-
-  function getPosition(score) {
-    if (score >= 80) return { label: "Strong Position", desc: "Your search is structurally sound. Effort and signal are well-aligned. The primary task is maintaining consistency while increasing targeted outreach." };
-    if (score >= 60) return { label: "Moderate Position", desc: "Your search has workable foundations but structural gaps are present. Effort is being spent, but some of it is not converting. Orientation before further optimization is the priority." };
-    if (score >= 40) return { label: "Strained Position", desc: "Multiple structural factors are limiting traction. This is not a reflection of your capability — it reflects a mismatch between your current approach and how modern hiring systems process candidates." };
-    return { label: "High-Risk Position", desc: "Your search is structurally misaligned with how current hiring systems operate. Volume alone will not resolve this. Orientation is needed before additional effort is applied." };
-  }
-
-  function getOrientationStatement(data, a) {
-    const { overall } = data;
-    const duration = a.q1; // 1=<1mo, 5=>12mo
-    const clarity = a.q4;  // 1=very clear, 4=no idea
-    const response = a.q8; // 1=strong, 4=zero
-
-    if (overall >= 75) {
-      return "Your search has structural integrity. The signal you are transmitting is legible, your direction is defined, and your effort is reasonably well-structured. The work now is precision — not volume.";
-    }
-    if (clarity >= 3 && response >= 3) {
-      return "Your search is generating effort without generating traction. The issue is structural: the signal entering hiring systems does not yet match what those systems are filtering for. More applications will not resolve this. Orientation must precede optimization.";
-    }
-    if (duration >= 4 && response >= 3) {
-      return "Extended search duration combined with low response rates indicates a structural pattern that has normalized over time. The approach that has not worked in months will not begin working without change. The first task is stopping — not accelerating.";
-    }
-    return "Your search has direction, but the transmission between your effort and the systems receiving it is losing signal. The gap between what you are doing and what is being read on the other side needs to be closed before further effort is invested.";
-  }
-
-  function getNextSteps(data, a) {
-    const steps = [];
-    const dims = data.dimensions;
-    const sorted = [...dims].sort((x, y) => x.score - y.score);
-
-    sorted.slice(0, 3).forEach((dim, i) => {
-      let action = '';
-      if (dim.name === 'Signal Clarity') {
-        action = { title: 'Audit your signal', body: 'Before applying further, review whether your resume and profile project one clear professional identity. If a stranger read your resume in 10 seconds, could they state your target role?' };
-      } else if (dim.name === 'Alignment') {
-        action = { title: 'Define your constraints', body: 'List the non-negotiables for your next role — not preferences, constraints. If you cannot name three, direction is not yet established and optimization will compound misalignment.' };
-      } else if (dim.name === 'Effort Efficiency') {
-        action = { title: 'Restructure before increasing volume', body: 'If your application-to-response ratio is below 10%, adding more applications will not change the ratio. The input — not the quantity — needs to change first.' };
-      } else {
-        action = { title: 'Account for time pressure', body: 'The longer a search runs without structure, the more pressure shapes decisions. Identify whether time urgency is causing you to apply to roles that do not match your target.' };
-      }
-      steps.push(action);
-    });
-
-    return steps;
-  }
-
-  // ---- RENDER RESULTS ----
   function renderResults() {
-    const data = window.scoreData;
-    if (!data) return;
+    const d = window.scoreData;
+    if(!d) return;
+    const pos = getPos(d.overall);
 
-    const pos = getPosition(data.overall);
+    setTimeout(()=>{
+      const c = 2*Math.PI*50;
+      document.getElementById('ring-fill').style.strokeDashoffset = c-(d.overall/100)*c;
+      let count=0;
+      const iv = setInterval(()=>{
+        count=Math.min(count+2,d.overall);
+        document.getElementById('score-num').innerHTML=count+'<span>Score</span>';
+        if(count>=d.overall) clearInterval(iv);
+      },20);
+    },200);
 
-    // Animate score dial
-    setTimeout(() => {
-      const circumference = 2 * Math.PI * 42;
-      const offset = circumference - (data.overall / 100) * circumference;
-      document.getElementById('dial-fill').style.strokeDashoffset = offset;
-
-      // Color by score
-      const fill = document.getElementById('dial-fill');
-      if (data.overall >= 70) fill.style.stroke = '#4a7a5a';
-      else if (data.overall >= 45) fill.style.stroke = '#c8b89a';
-      else fill.style.stroke = '#8a5a3a';
-
-      // Animate number
-      let count = 0;
-      const target = data.overall;
-      const interval = setInterval(() => {
-        count = Math.min(count + 2, target);
-        document.getElementById('score-number').textContent = count;
-        if (count >= target) clearInterval(interval);
-      }, 20);
-    }, 200);
-
-    document.getElementById('score-position').textContent = pos.label;
+    document.getElementById('score-pos').textContent = pos.label;
     document.getElementById('score-desc').textContent = pos.desc;
 
-    // Dimensions
-    const dimContainer = document.getElementById('dimensions-container');
-    data.dimensions.forEach(dim => {
-      const riskClass = dim.score >= 70 ? 'risk-low' : dim.score >= 40 ? 'risk-med' : 'risk-high';
-      const riskLabel = dim.score >= 70 ? 'Low Risk' : dim.score >= 40 ? 'Moderate Risk' : 'High Risk';
-      dimContainer.innerHTML += `
-        <div class="dimension">
-          <div class="dim-header">
-            <span class="dim-name">${dim.name}</span>
-            <span class="dim-score">${riskLabel} · ${dim.score}/100</span>
-          </div>
-          <div class="dim-bar-track">
-            <div class="dim-bar-fill ${riskClass}" style="width:0%" data-target="${dim.score}%"></div>
-          </div>
-          <div class="dim-insight">${dim.insight}</div>
-        </div>
-      `;
+    const dims = [{name:'Signal Clarity',score:d.signal},{name:'Alignment',score:d.align},{name:'Effort Efficiency',score:d.effort},{name:'Structural Readiness',score:d.struct}];
+    const grid = document.getElementById('dim-grid');
+    dims.forEach(dim=>{
+      const r=rc(dim.score), l=rl(dim.score);
+      grid.innerHTML+=`<div class="dim-card"><div class="dim-head"><div class="dim-name">${dim.name}</div><div class="dim-badge ${r}">${l}</div></div><div class="dim-bar-track"><div class="dim-bar ${r}" style="width:0%" data-w="${dim.score}%"></div></div><div class="dim-insight">${INSIGHTS[dim.name][r]}</div></div>`;
     });
+    setTimeout(()=>document.querySelectorAll('.dim-bar').forEach(b=>b.style.width=b.dataset.w),300);
 
-    // Animate bars
-    setTimeout(() => {
-      document.querySelectorAll('.dim-bar-fill').forEach(bar => {
-        bar.style.width = bar.dataset.target;
-      });
-    }, 300);
+    const a=answers;
+    let orient='';
+    if(d.overall>=75) orient="Your search has structural integrity. The signal you are transmitting is legible, your direction is defined, and your effort is well-structured. The work now is precision — not volume.";
+    else if(a.q4>=3&&a.q8>=3) orient="Your search is generating effort without generating traction. The issue is structural: the signal entering hiring systems does not match what those systems are filtering for. More applications will not resolve this. Orientation must precede optimization.";
+    else if(a.q1>=4&&a.q8>=3) orient="Extended search duration combined with low response rates indicates a structural pattern that has normalized over time. The approach that has not worked in months will not begin working without change. The first task is stopping — not accelerating.";
+    else orient="Your search has direction, but the transmission between your effort and the systems receiving it is losing signal. The gap between what you are doing and what is being read on the other side needs to be closed before further effort is invested.";
+    document.getElementById('orient-text').textContent=orient;
 
-    // Orientation
-    document.getElementById('orientation-text').textContent = getOrientationStatement(data, answers);
-
-    // Next steps
-    const nextSteps = getNextSteps(data, answers);
-    const nextContainer = document.getElementById('next-steps-container');
-    nextSteps.forEach((step, i) => {
-      nextContainer.innerHTML += `
-        <div class="next-item">
-          <span class="next-num">0${i+1}</span>
-          <div class="next-content">
-            <div class="next-title">${step.title}</div>
-            <div class="next-body">${step.body}</div>
-          </div>
-        </div>
-      `;
+    const sorted=[...dims].sort((a,b)=>a.score-b.score);
+    const nc=document.getElementById('next-steps');
+    sorted.slice(0,3).forEach((dim,i)=>{
+      const ac=ACTIONS[dim.name];
+      nc.innerHTML+=`<div class="next-item"><div class="next-num">${i+1}</div><div><div class="next-title">${ac.title}</div><div class="next-body">${ac.body}</div></div></div>`;
     });
   }
 
-  // ---- STRIPE RETURN DETECTION ----
-  // Check if user is returning from Stripe payment
-  // Stripe adds ?payment_intent= or you can use a success URL param
-  function checkPaymentReturn() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('paid') === 'true' || params.get('payment_intent')) {
-      // Try to restore answers from sessionStorage
-      const saved = sessionStorage.getItem('cu_answers');
-      if (saved) {
-        Object.assign(answers, JSON.parse(saved));
-        computeScores();
-        goToStep(6);
-        renderResults();
-      } else {
-        // No saved answers, show results with generic message
-        goToStep(6);
-      }
+  function checkReturn(){
+    const p=new URLSearchParams(window.location.search);
+    if(p.get('paid')==='true'||p.get('payment_intent')){
+      const saved=sessionStorage.getItem('cu_answers');
+      if(saved) Object.assign(answers,JSON.parse(saved));
+      computeScores();
+      goToStep(6);
+      renderResults();
     }
   }
 
-  // Save answers to session before Stripe redirect
-  document.addEventListener('click', function(e) {
-    if (e.target && e.target.classList.contains('btn-stripe')) {
-      sessionStorage.setItem('cu_answers', JSON.stringify(answers));
-    }
-  });
-
-  // ---- INIT ----
-  checkPaymentReturn();
-  updateProgressUI(0);
+  updateUI(0);
+  checkReturn();
 </script>
 </body>
 </html>
