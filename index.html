@@ -615,7 +615,7 @@ body {
 .bottom-bar a { color: var(--text-muted); text-decoration: none; }
 .bottom-bar a:hover { color: var(--g2); }
 
-/* MOBILE */
+/* MOBILE TOGGLE */
 .sidebar-toggle {
   display: none;
   background: var(--grad);
@@ -629,18 +629,87 @@ body {
 }
 .sidebar-toggle span { display: block; width: 16px; height: 2px; background: white; margin: 3px 0; border-radius: 2px; }
 
+/* MOBILE PROGRESS STRIP — shown only on mobile */
+.mobile-progress {
+  display: none;
+  width: 100%;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+  align-items: center;
+  gap: 12px;
+}
+.mobile-progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.mobile-progress-fill { height: 100%; background: var(--grad); border-radius: 4px; transition: width 0.5s ease; width: 0%; }
+.mobile-progress-label { font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap; letter-spacing: 0.06em; }
+.mobile-progress-pct { font-size: 11px; font-weight: 800; color: var(--g2); white-space: nowrap; min-width: 32px; text-align: right; }
+
 @media (max-width: 860px) {
-  .sidebar { display: none; position: fixed; top: 60px; left: 0; height: calc(100vh - 60px); z-index: 150; box-shadow: var(--shadow-lg); }
+  /* NAV — clean single line */
+  .topnav { padding: 0 16px; gap: 10px; }
+  .topnav-divider { display: none; }
+  .topnav-breadcrumb { display: none; }
+  .coming-soon-badge { display: none; }
+  .nav-logo-circle { width: 30px; height: 30px; }
+  .topnav-logo { font-size: 17px; }
+
+  /* SIDEBAR — slide in on demand */
+  .sidebar {
+    display: none;
+    position: fixed;
+    top: 60px; left: 0;
+    height: calc(100vh - 60px);
+    z-index: 150;
+    box-shadow: var(--shadow-lg);
+  }
   .sidebar.open { display: flex; }
   .sidebar-toggle { display: flex; }
-  .content-inner { padding: 28px 20px 80px; }
+
+  /* MOBILE PROGRESS STRIP */
+  .mobile-progress { display: flex; }
+
+  /* CONTENT */
+  .content-inner { padding: 20px 16px 100px; }
+
+  /* BOTTOM BAR — simplified, no overlap */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: auto;
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    text-align: center;
+  }
+  .bottom-bar div { display: flex; gap: 16px; }
+
+  /* STEP HEADS */
+  .step-h1 { font-size: 26px; }
+  .step-desc { font-size: 13px; }
+
+  /* GRIDS */
   .dim-grid { grid-template-columns: 1fr; }
-  .res-score-card { flex-direction: column; gap: 20px; text-align: center; }
-  .pw-cols { grid-template-columns: 1fr; }
-  .btn-row { flex-direction: column-reverse; }
-  .btn { width: 100%; text-align: center; }
   .intro-grid { grid-template-columns: 1fr 1fr; }
-  .coming-soon-badge { display: none; }
+  .pw-cols { grid-template-columns: 1fr; }
+
+  /* SCORE CARD */
+  .res-score-card { flex-direction: column; gap: 20px; text-align: center; padding: 28px 24px; }
+
+  /* PAYWALL */
+  .pw-wrap { padding: 32px 24px; }
+  .pw-price { font-size: 64px; }
+
+  /* BUTTONS */
+  .btn-row { flex-direction: column-reverse; }
+  .btn { width: 100%; text-align: center; padding: 14px 20px; }
+  .btn-row > .btn-ghost { order: 2; }
+  .btn-row > .btn-primary { order: 1; }
+
+  /* ORIENT + NEXT CARDS */
+  .orient-card { padding: 24px 20px; }
+  .next-card { padding: 24px 20px; }
 }
 </style>
 </head>
@@ -678,7 +747,14 @@ body {
   </div>
 </nav>
 
-<!-- APP LAYOUT -->
+<!-- MOBILE PROGRESS STRIP -->
+<div class="mobile-progress" id="mobile-progress">
+  <span class="mobile-progress-label" id="mob-label">Introduction</span>
+  <div class="mobile-progress-track">
+    <div class="mobile-progress-fill" id="mob-fill"></div>
+  </div>
+  <span class="mobile-progress-pct" id="mob-pct">0%</span>
+</div>
 <div class="app-layout">
 
   <!-- SIDEBAR -->
@@ -1130,6 +1206,11 @@ function updateSidebar(step) {
   document.getElementById('prog-label').textContent = labels[step] || '';
   const breadcrumbs = ['Introduction', 'Search Context', 'Signal Clarity', 'Effort & Structure', 'Alignment', 'Your Email', 'Unlock Results', 'Your Results'];
   document.getElementById('nav-step-name').textContent = breadcrumbs[step] || 'Assessment';
+
+  // Update mobile progress strip
+  document.getElementById('mob-fill').style.width = pct + '%';
+  document.getElementById('mob-pct').textContent = pct + '%';
+  document.getElementById('mob-label').textContent = breadcrumbs[step] || 'Assessment';
 }
 
 function goToStep(n) {
