@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Position Orientation Brief | Career-University</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4EK4W84LRG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4EK4W84LRG');
+</script>
 <style>
 :root {
   --g1: #2ecc8f;
@@ -728,6 +736,13 @@ body {
         </div>
       </div>
       <div class="step-nav-item" id="nav-5" onclick="navClick(5)">
+        <div class="step-nav-dot">@</div>
+        <div class="step-nav-info">
+          <div class="step-nav-name">Your Email</div>
+          <div class="step-nav-sub">Results delivery</div>
+        </div>
+      </div>
+      <div class="step-nav-item" id="nav-6" onclick="navClick(6)">
         <div class="step-nav-dot">$</div>
         <div class="step-nav-info">
           <div class="step-nav-name">Unlock Results</div>
@@ -961,12 +976,42 @@ body {
         <div class="error-msg" id="err-4">Please answer all questions before continuing.</div>
         <div class="btn-row">
           <button class="btn btn-ghost" onclick="goToStep(3)">← Back</button>
-          <button class="btn btn-primary" onclick="next(4,5,['q11','q12','q13'])">Review & Unlock →</button>
+          <button class="btn btn-primary" onclick="next(4,5,['q11','q12','q13'])">Continue →</button>
         </div>
       </div>
 
-      <!-- STEP 5: PAYWALL -->
+      <!-- STEP 5: EMAIL CAPTURE -->
       <div class="step" id="step-5">
+        <div class="step-head">
+          <div class="step-eyebrow">Almost There</div>
+          <h1 class="step-h1">Where Should We <em>Send</em> Your Results?</h1>
+          <p class="step-desc">Enter your email to receive a copy of your Position Orientation Brief after purchase. We do not send unsolicited emails.</p>
+        </div>
+        <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:var(--shadow-sm);">
+          <div class="q-block" style="margin-bottom:0;">
+            <div class="q-label" style="margin-bottom:16px;"><span class="q-num" style="background:var(--grad);">@</span>Your email address</div>
+            <input
+              type="email"
+              id="email-input"
+              placeholder="you@example.com"
+              class="field-select"
+              style="font-size:15px;padding:14px 18px;"
+              oninput="answers.email=this.value"
+            />
+            <div style="margin-top:12px;font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:8px;">
+              <span style="color:var(--g1);">✓</span> Used only to deliver your brief. No spam, ever.
+            </div>
+          </div>
+        </div>
+        <div class="error-msg" id="err-5">Please enter a valid email address.</div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="goToStep(4)">← Back</button>
+          <button class="btn btn-primary" onclick="submitEmail()">Continue to Payment →</button>
+        </div>
+      </div>
+
+      <!-- STEP 6: PAYWALL -->
+      <div class="step" id="step-6">
         <div class="step-head">
           <div class="step-eyebrow">Assessment Complete</div>
           <h1 class="step-h1">Your Results Are <em>Ready</em></h1>
@@ -988,12 +1033,13 @@ body {
         </div>
         <p class="pw-legal">All purchases are final. This is a diagnostic product — it tells you where you are, not where to go.<br>By purchasing you agree to the <a href="https://career-university.com">Terms & Conditions</a>.</p>
         <div class="btn-row" style="justify-content:flex-start;margin-top:24px;">
-          <button class="btn btn-ghost" onclick="goToStep(4)">← Back to Assessment</button>
+          <button class="btn btn-ghost" onclick="goToStep(5)">← Back</button>
         </div>
       </div>
 
-      <!-- STEP 6: RESULTS -->
-      <div class="step" id="step-6">
+      <!-- STEP 7: RESULTS -->
+      <div class="step" id="step-7">
+
         <div class="step-head">
           <div class="step-eyebrow">Position Orientation Brief</div>
           <h1 class="step-h1">Your Market <em>Position</em></h1>
@@ -1067,23 +1113,22 @@ function navClick(n) {
 }
 
 function updateSidebar(step) {
-  for (let i = 0; i <= 5; i++) {
+  for (let i = 0; i <= 6; i++) {
     const el = document.getElementById('nav-' + i);
     if (!el) continue;
     el.classList.remove('active', 'completed');
     if (i === step) el.classList.add('active');
     else if (i < step) el.classList.add('completed');
   }
-  // ring
-  const pct = step === 0 ? 0 : Math.min(Math.round((step / TOTAL) * 100), 100);
+  const TOTAL_STEPS = 6;
+  const pct = step === 0 ? 0 : Math.min(Math.round((step / TOTAL_STEPS) * 100), 100);
   const circumference = 2 * Math.PI * 22;
   const offset = circumference - (pct / 100) * circumference;
   document.getElementById('prog-ring-fill').style.strokeDashoffset = offset;
   document.getElementById('prog-pct').textContent = pct + '%';
-  const labels = ['Not started', 'Section 1 of 4', 'Section 2 of 4', 'Section 3 of 4', 'Section 4 of 4', 'Unlocking results', 'Complete'];
+  const labels = ['Not started', 'Section 1 of 4', 'Section 2 of 4', 'Section 3 of 4', 'Section 4 of 4', 'Email capture', 'Unlocking results', 'Complete'];
   document.getElementById('prog-label').textContent = labels[step] || '';
-
-  const breadcrumbs = ['Introduction', 'Search Context', 'Signal Clarity', 'Effort & Structure', 'Alignment', 'Unlock Results', 'Your Results'];
+  const breadcrumbs = ['Introduction', 'Search Context', 'Signal Clarity', 'Effort & Structure', 'Alignment', 'Your Email', 'Unlock Results', 'Your Results'];
   document.getElementById('nav-step-name').textContent = breadcrumbs[step] || 'Assessment';
 }
 
@@ -1107,11 +1152,42 @@ function next(step, nextStep, required) {
   const err = document.getElementById('err-' + step);
   if (!required.every(q => answers[q])) { err.classList.add('visible'); return; }
   err.classList.remove('visible');
-  if (nextStep === 5) computeScores();
+  if (nextStep === 6) computeScores();
+  // GA: track step completion
+  gtag('event', 'assessment_step', { step_number: step, step_name: ['','search_context','signal_clarity','effort_structure','alignment'][step] || 'unknown' });
   goToStep(nextStep);
 }
 
-function saveAnswers() { sessionStorage.setItem('cu_answers', JSON.stringify(answers)); }
+// EMAIL CAPTURE + LOOPS
+async function submitEmail() {
+  const email = document.getElementById('email-input').value.trim();
+  const err = document.getElementById('err-5');
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) { err.classList.add('visible'); return; }
+  err.classList.remove('visible');
+  answers.email = email;
+
+  // GA: track email capture
+  gtag('event', 'email_captured', { email_provided: true });
+
+  // Send to Loops as a contact
+  try {
+    await fetch('https://app.loops.so/api/v1/contacts/upsert', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer b9485c438d907e0bbcdda81bbd3766b4' },
+      body: JSON.stringify({ email, source: 'assessment', userGroup: 'applicant', mailingLists: {} })
+    });
+  } catch(e) { console.warn('Loops contact error:', e); }
+
+  computeScores();
+  goToStep(6);
+}
+
+function saveAnswers() {
+  sessionStorage.setItem('cu_answers', JSON.stringify(answers));
+  // GA: track paywall click
+  gtag('event', 'begin_checkout', { currency: 'USD', value: 29 });
+}
 
 // SCORING
 function sg(vals, maxes) {
@@ -1151,10 +1227,36 @@ const ACT = {
   'Structural Readiness': { title: 'Account for time pressure', body: 'Identify whether urgency is causing you to apply to roles that do not match your target. Pressure accelerates misalignment when direction is unclear.' }
 };
 
+// SEND LOOPS TRANSACTIONAL EMAIL after payment
+async function sendConfirmationEmail(email, scoreData) {
+  if (!email) return;
+  try {
+    await fetch('https://app.loops.so/api/v1/transactional', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer b9485c438d907e0bbcdda81bbd3766b4' },
+      body: JSON.stringify({
+        transactionalId: 'cmmxqdhfd03wv0h1pi58k0usi',
+        email,
+        dataVariables: {
+          overall_score: scoreData.overall,
+          position_label: getPos(scoreData.overall).label,
+          signal_score: scoreData.signal,
+          align_score: scoreData.align,
+          effort_score: scoreData.effort,
+          struct_score: scoreData.struct
+        }
+      })
+    });
+  } catch(e) { console.warn('Loops transactional error:', e); }
+}
+
 function renderResults() {
   const d = window.SD;
   if (!d) return;
   const pos = getPos(d.overall);
+
+  // GA: track purchase/results view
+  gtag('event', 'purchase', { currency: 'USD', value: 29, transaction_id: Date.now().toString() });
 
   setTimeout(() => {
     const c = 2 * Math.PI * 46;
@@ -1216,8 +1318,10 @@ function checkReturn() {
     const saved = sessionStorage.getItem('cu_answers');
     if (saved) Object.assign(answers, JSON.parse(saved));
     computeScores();
-    goToStep(6);
+    goToStep(7);
     renderResults();
+    // Send confirmation email via Loops
+    if (answers.email) sendConfirmationEmail(answers.email, window.SD);
   }
 }
 
